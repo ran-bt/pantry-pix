@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
+import BgImage from "./BgImage";
+import LeftSideBar from "./LeftSideBar";
 
 const RecipeDetail = () => {
   const { id } = useParams();
@@ -23,22 +26,32 @@ const RecipeDetail = () => {
   return !instructions ? (
     <h1>Loading...</h1>
   ) : (
-    <div>
-      {instructions.map((instruction) => {
-        return (
-          <div>
-            <p>first map</p>
-            <ul>
-              {" "}
-              {instruction.steps.map((instructionStep) => {
-                return <li>{instructionStep.step}</li>;
-              })}
-            </ul>
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <BgImage />
+      <MainDiv>
+        <LeftSideBar />
+        <div>
+          {instructions.map((instruction) => {
+            return (
+              <div>
+                <p>first map</p>
+                <ul>
+                  {" "}
+                  {instruction.steps.map((instructionStep) => {
+                    return <li>{instructionStep.step}</li>;
+                  })}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
+      </MainDiv>
+    </>
   );
 };
 
 export default RecipeDetail;
+const MainDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;

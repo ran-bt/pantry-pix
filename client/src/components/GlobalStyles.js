@@ -63,7 +63,10 @@ h3,
 label,
 button {
   //color: #fff;
-  font-family: var(--font-heading);
+ // font-family: var(--font-heading);
+ //font-family: 'Montez', cursive;
+
+font-family: 'Montserrat', sans-serif;
   //font-size: 32px;
   //text-align: center;
 }
@@ -72,7 +75,9 @@ a,
 li,
 blockquote,
 input {
-  font-family: var(--font-body);
+  /* font-family: var(--font-body); */
+  //font-family: 'Montez', cursive;
+font-family: 'Montserrat', sans-serif;
 }
 
   input {
