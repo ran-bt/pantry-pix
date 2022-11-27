@@ -28,9 +28,9 @@ const RecipeImg = ({ recipe }) => {
 };
 export default RecipeImg;
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 200px;
+  //display: flex;
+  //flex-direction: column;
+  //width: 200px;
   //background-color: blue;
 `;
 

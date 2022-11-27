@@ -44,13 +44,14 @@ const SearchByIngredient = () => {
       .then((data) => {
         console.log(data);
         setRecipes(data);
+        setValue("");
+        setValue2("");
+        setValue3("");
+        setValue4("");
+        setValue5("");
       });
   };
-  return !recipes ? (
-    <StyledLoading>
-      <SpinnerCircular />
-    </StyledLoading>
-  ) : (
+  return (
     <>
       <Main>
         <StyledInput
@@ -103,13 +104,19 @@ const SearchByIngredient = () => {
         </StyledButton>
       </Main>
       {!recipes ? (
-        <></>
+        <StyledLoading>
+          <SpinnerCircular />
+        </StyledLoading>
       ) : (
-        <>
+        <Wrapper>
           {recipes.map((recipe) => {
-            return <RecipeImg recipe={recipe} />;
+            return (
+              <StyledResponse>
+                <RecipeImg recipe={recipe} />
+              </StyledResponse>
+            );
           })}
-        </>
+        </Wrapper>
       )}
     </>
   );
@@ -152,4 +159,12 @@ const StyledButton = styled.button`
   background-color: #509e2f;
   border: none;
   padding: 10px 30px;
+`;
+const StyledResponse = styled.div`
+  display: flex;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `;
