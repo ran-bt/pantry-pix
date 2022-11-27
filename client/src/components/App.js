@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
+import Footer from "./Footer";
 import GlobalStyles from "./GlobalStyles";
 
 import Header from "./Header";
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/search" element={<SearchByIngredient />} />
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

@@ -17,6 +17,7 @@ const SearchByIngredient = () => {
   const key1 = process.env.REACT_APP_API_KEY1;
 
   const [recipes, setRecipes] = useState(null);
+
   //const [searchResults, setSearchResults] = useState(null);
   // console.log(process.env.REACT_APP_API_KEY);
 
@@ -104,9 +105,7 @@ const SearchByIngredient = () => {
         </StyledButton>
       </Main>
       {!recipes ? (
-        <StyledLoading>
-          <SpinnerCircular />
-        </StyledLoading>
+        <StyledLoading>{/* <SpinnerCircular /> */}</StyledLoading>
       ) : (
         <Wrapper>
           {recipes.map((recipe) => {
@@ -165,6 +164,8 @@ const StyledResponse = styled.div`
 `;
 
 const Wrapper = styled.div`
+  margin-top: 15px;
   display: flex;
   flex-wrap: wrap;
+  gap: 5px;
 `;

@@ -248,6 +248,7 @@ const ImageBox = styled.div`
 const ImageDes = styled.div``;
 
 const Cousine = styled.h2`
+  margin-top: 45px;
   color: #509e2f;
   font-family: "Montez", cursive;
   font-size: 50px;
