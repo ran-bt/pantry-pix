@@ -6,6 +6,7 @@ import { SpinnerCircular } from "spinners-react";
 import LeftSideBar from "./LeftSideBar";
 import RightSideBar from "./RightSideBar";
 import RecipeImg from "./RecipeImg";
+import SearchByIngredient from "./SearchByIngredient";
 
 const Home = ({ recipes, setRecipes }) => {
   const [value, setValue] = useState("");
@@ -46,16 +47,16 @@ const Home = ({ recipes, setRecipes }) => {
   //       });
   //   };
 
-  //   useEffect(() => {
-  //     fetch(
-  //       `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${key1}&ingredients=pineapples,+flour,+rice,+chicken&number=5`
-  //     )
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //         setRecipes(data);
-  //       });
-  //   }, []);
+  useEffect(() => {
+    fetch(
+      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${key1}&ingredients=pineapples,+flour,+rice,+chicken&number=5`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setRecipes(data);
+      });
+  }, []);
 
   return !recipes ? (
     <>
@@ -113,31 +114,37 @@ const Home = ({ recipes, setRecipes }) => {
         <LeftSideBar />
 
         <StyledBox>
-          <StyledNavContainer>
+          {/* <StyledNavContainer>
             <NavBar>
               <StyledNavLink to={"#"}>Home</StyledNavLink>
               <StyledNavLink to={"#"}>Search By Ingredient</StyledNavLink>
               <StyledNavLink to={"#"}>Profile</StyledNavLink>
               <StyledNavLink to={"#"}>Help</StyledNavLink>
             </NavBar>
-          </StyledNavContainer>
+          </StyledNavContainer> */}
+          <SearchByIngredient />
+          <Cousine>Cuisines</Cousine>
           <StyledMain>
             {recipes.map((recipe) => {
               return (
                 <>
                   <RecipeImg recipe={recipe} />
-                  {/* <StyledDiv>
-                  <Link to={`/recipe-detail/${recipe.id}`}>
-                    <StyledH1>{recipe.title}</StyledH1>
-                    <StyledH1>{recipe.id}</StyledH1>
-                    <StyledImgDiv>
-                      <img src={recipe.image} alt="" />
-                    </StyledImgDiv>
-                  </Link>
-                </StyledDiv>
-
-                <StyledP>{recipe.missedIngredientCount}</StyledP> */}
                 </>
+                // <Wrapper>
+                //   <StyledDiv>
+                //     <Link to={`/recipe-detail/${recipe.id}`}>
+                //       <ImageBox>
+                //         <StyledImg src={recipe.image} alt="" />
+                //         <ImageDes>
+                //           <StyledH1>{recipe.title}</StyledH1>
+                //           {/* <StyledH1>{recipe.id}</StyledH1> */}
+                //         </ImageDes>
+                //       </ImageBox>
+                //     </Link>
+                //   </StyledDiv>
+
+                //   {/* <StyledP>{recipe.missedIngredientCount}</StyledP> */}
+                // </Wrapper>
               );
             })}
           </StyledMain>
@@ -180,15 +187,25 @@ const StyledContainer = styled.div`
   display: flex;
   gap: 15px;
   //width: 50vw;
-  background-color: red;
+  //background-color: red;
   //;
 `;
 const StyledMain = styled.div`
   display: flex;
-  width: 300px;
   flex-wrap: wrap;
+  gap: 2px;
 `;
-const StyledDiv = styled.div``;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  //background-color: blue;
+`;
+const StyledDiv = styled.div`
+  margin: auto;
+  width: 200px;
+`;
+
 const StyledH1 = styled.h1`
   color: black;
 `;
@@ -213,7 +230,7 @@ const NavBar = styled.div`
   gap: 10px;
 `;
 const StyledBox = styled.div`
-  background-color: green;
+  //background-color: green;
   //padding-left: 35px;
   margin-top: 25px;
   width: 60vw;
@@ -222,4 +239,16 @@ const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   color: #509e2f;
   font-size: 20px;
+`;
+const ImageBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const ImageDes = styled.div``;
+
+const Cousine = styled.h2`
+  color: #509e2f;
+  font-family: "Montez", cursive;
+  font-size: 50px;
 `;

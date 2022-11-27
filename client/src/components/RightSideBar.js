@@ -12,7 +12,7 @@ const StyledContainer = styled.div`
   width: 20vw;
   display: flex;
   align-items: center;
-  background-color: yellow;
+  //background-color: yellow;
   margin-right: 0;
   padding-left: 0px;
 `;
@@ -30,7 +30,7 @@ const ImgBox = styled.div`
   background-size: cover;
   overflow-y: hidden;
 
-  background-color: yellow;
+  //background-color: yellow;
   width: 20vw;
   height: 100vh;
   //margin-right: 0;

@@ -8,6 +8,8 @@ import Home from "./Home";
 
 import Profile from "./Profile";
 import RecipeDetail from "./RecipeDetail";
+import SearchByIngredient from "./SearchByIngredient";
+import Test from "./Test";
 
 const App = () => {
   const [recipes, setRecipes] = useState(null);
@@ -23,6 +25,8 @@ const App = () => {
         />
         <Route path="/recipe-detail/:id" element={<RecipeDetail />} />
         <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/test" element={<Test />} />
+        <Route path="/search" element={<SearchByIngredient />} />
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>

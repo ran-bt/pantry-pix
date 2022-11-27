@@ -61,8 +61,9 @@ const Styledh2 = styled.h2`
   margin-bottom: 40px;
   margin-top: 25px;
   padding-left: 15px;
-  font-family: "Montez", cursive;
-  font-size: 50px;
+  //font-family: "Montez", cursive;
+  font-size: 25px;
+  font-weight: bold;
 `;
 const Styledh3 = styled.h3`
   margin-bottom: 10px;

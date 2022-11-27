@@ -1,3 +1,12 @@
+import { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import styled from "styled-components";
+import BgImage from "./BgImage";
+import { SpinnerCircular } from "spinners-react";
+import LeftSideBar from "./LeftSideBar";
+import RightSideBar from "./RightSideBar";
+import RecipeImg from "./RecipeImg";
+
 const SearchByIngredient = () => {
   const [value, setValue] = useState("");
   const [value2, setValue2] = useState("");
@@ -7,7 +16,8 @@ const SearchByIngredient = () => {
   const key = process.env.REACT_APP_API_KEY;
   const key1 = process.env.REACT_APP_API_KEY1;
 
-  //const [recipes, setRecipes] = useState(null);
+  const [recipes, setRecipes] = useState(null);
+  //const [searchResults, setSearchResults] = useState(null);
   // console.log(process.env.REACT_APP_API_KEY);
 
   const clickHandler = () => {
@@ -36,110 +46,110 @@ const SearchByIngredient = () => {
         setRecipes(data);
       });
   };
-  return (
+  return !recipes ? (
+    <StyledLoading>
+      <SpinnerCircular />
+    </StyledLoading>
+  ) : (
     <>
-      <>
-        <StyledLoading>
-          <SpinnerCircular />
-        </StyledLoading>
-
-        <div>
-          <BgImage />
-          <LeftSideBar />
-          <button
-            onClick={() => {
-              clickHandler();
-            }}
-          >
-            Submit
-          </button>
-          <input
-            type="text"
-            value={value}
-            onChange={(e) => {
-              setValue(e.target.value);
-            }}
-          />
-          list ingredients
-          <input
-            type="text"
-            value={value2}
-            onChange={(e) => {
-              setValue2(e.target.value);
-            }}
-          />
-          <input
-            type="text"
-            value={value3}
-            onChange={(e) => {
-              setValue3(e.target.value);
-            }}
-          />
-          <input
-            type="text"
-            value={value4}
-            onChange={(e) => {
-              setValue4(e.target.value);
-            }}
-          />
-          <input
-            type="text"
-            value={value5}
-            onChange={(e) => {
-              setValue5(e.target.value);
-            }}
-          />
-        </div>
-      </>
-      <div>
-        <BgImage />
-        <LeftSideBar />
-        <button
-          onClick={() => {
-            clickHandler();
-          }}
-        >
-          Submit
-        </button>
-        <input
+      <Main>
+        <StyledInput
           type="text"
           value={value}
+          placeholder="ingredient "
           onChange={(e) => {
             setValue(e.target.value);
           }}
         />
-        list ingredients
-        <input
+
+        <StyledInput
+          placeholder="ingredient "
           type="text"
           value={value2}
           onChange={(e) => {
             setValue2(e.target.value);
           }}
         />
-        <input
+        <StyledInput
+          placeholder="ingredient "
           type="text"
           value={value3}
           onChange={(e) => {
             setValue3(e.target.value);
           }}
         />
-        <input
+        <StyledInput
+          placeholder="ingredient "
           type="text"
           value={value4}
           onChange={(e) => {
             setValue4(e.target.value);
           }}
         />
-        <input
+        <StyledInput
+          placeholder="ingredient "
           type="text"
           value={value5}
           onChange={(e) => {
             setValue5(e.target.value);
           }}
         />
-      </div>
+        <StyledButton
+          onClick={() => {
+            clickHandler();
+          }}
+        >
+          Find recipes
+        </StyledButton>
+      </Main>
+      {!recipes ? (
+        <></>
+      ) : (
+        <>
+          {recipes.map((recipe) => {
+            return <RecipeImg recipe={recipe} />;
+          })}
+        </>
+      )}
     </>
   );
 };
 
 export default SearchByIngredient;
+
+const StyledLoading = styled.div`
+  position: absolute;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  //background-color: red;
+  margin-left: 50%;
+  margin-top: 50%;
+`;
+
+const Main = styled.div`
+  //margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  border: solid 1px gray;
+  align-items: center;
+  background-color: #d9d9d9;
+  padding: 10px 0;
+`;
+const StyledInput = styled.input`
+  height: 20px;
+  width: 450px;
+  //border: none;
+  border-bottom: 1px solid gray;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: #d9d9d9;
+  border-radius: 0;
+`;
+const StyledButton = styled.button`
+  margin-top: 5px;
+  background-color: #509e2f;
+  border: none;
+  padding: 10px 30px;
+`;
