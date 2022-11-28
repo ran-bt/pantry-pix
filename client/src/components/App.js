@@ -14,6 +14,7 @@ import Test from "./Test";
 
 const App = () => {
   const [recipes, setRecipes] = useState(null);
+  const [searchedByIngResults, setSearchedByIngResults] = useState(null);
   return (
     <BrowserRouter>
       <GlobalStyles />
@@ -22,15 +23,30 @@ const App = () => {
       <Routes>
         <Route
           path="/"
-          element={<Home recipes={recipes} setRecipes={setRecipes} />}
+          element={
+            <Home
+              recipes={recipes}
+              setRecipes={setRecipes}
+              searchedByIngResults={searchedByIngResults}
+              setSearchedByIngResults={setSearchedByIngResults}
+            />
+          }
         />
-        <Route path="/recipe-detail/:id" element={<RecipeDetail />} />
+        <Route
+          path="/recipe-detail/:id"
+          element={
+            <RecipeDetail
+              recipes={recipes}
+              //recipes={searchedByIngResults}
+            />
+          }
+        />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/test" element={<Test />} />
         <Route path="/search" element={<SearchByIngredient />} />
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 };

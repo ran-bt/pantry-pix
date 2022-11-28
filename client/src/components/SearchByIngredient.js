@@ -7,7 +7,10 @@ import LeftSideBar from "./LeftSideBar";
 import RightSideBar from "./RightSideBar";
 import RecipeImg from "./RecipeImg";
 
-const SearchByIngredient = () => {
+const SearchByIngredient = ({
+  searchedByIngResults,
+  setSearchedByIngResults,
+}) => {
   const [value, setValue] = useState("");
   const [value2, setValue2] = useState("");
   const [value3, setValue3] = useState("");
@@ -45,6 +48,7 @@ const SearchByIngredient = () => {
       .then((data) => {
         console.log(data);
         setRecipes(data);
+        setSearchedByIngResults(data);
         setValue("");
         setValue2("");
         setValue3("");
@@ -58,7 +62,7 @@ const SearchByIngredient = () => {
         <StyledInput
           type="text"
           value={value}
-          placeholder="ingredient "
+          placeholder="ingredient"
           onChange={(e) => {
             setValue(e.target.value);
           }}
@@ -152,6 +156,12 @@ const StyledInput = styled.input`
   border-right: none;
   background-color: #d9d9d9;
   border-radius: 0;
+  &::placeholder {
+    color: red;
+    font-size: 15px;
+  }
+  color: green;
+  font-size: 15px;
 `;
 const StyledButton = styled.button`
   margin-top: 5px;

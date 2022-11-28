@@ -4,41 +4,61 @@ import styled from "styled-components";
 import BgImage from "./BgImage";
 import LeftSideBar from "./LeftSideBar";
 
-const RecipeDetail = () => {
+const RecipeDetail = ({ recipes }) => {
+  //declaring needed states
+  const [instructions, setInstructions] = useState(null);
+  const [ingredients, setIngredients] = useState(null);
+
   const { id } = useParams();
+
+  // const selectedRecipe = recipes.filter((recipeInfo) => {
+  //   return recipeInfo.id === id;
+  // });
+  // console.log("recipe list", recipes);
+  // console.log("selected Recipe", selectedRecipe);
+  // console.log("selected id", id);
 
   const key = process.env.REACT_APP_API_KEY;
   const key1 = process.env.REACT_APP_API_KEY1;
-  console.log(key1);
 
-  const [instructions, setInstructions] = useState(null);
-
+  //fetching list of ingredients
   useEffect(() => {
     fetch(
-      `https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=${key}`
+      `https://api.spoonacular.com/recipes/${id}/information?apiKey=${key}&includeNutrition=false`
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log("Ingredients", data);
         setInstructions(data);
       });
   }, []);
+
+  // fetching instructions
+  // useEffect(() => {
+  //   fetch(
+  //     `https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=${key}`
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       //console.log("Instruction", data);
+  //       setInstructions(data);
+  //     });
+  // }, []);
   return !instructions ? (
     <h1>Loading...</h1>
   ) : (
     <>
-      <BgImage />
+      <BgImage url={instructions.image} />
       <MainDiv>
         <LeftSideBar />
         <div>
-          {instructions.map((instruction) => {
+          {instructions.analyzedInstructions.map((instruction) => {
             return (
               <div>
-                <p>first map</p>
                 <ul>
                   {" "}
                   {instruction.steps.map((instructionStep) => {
-                    return <li>{instructionStep.step}</li>;
+                    return <Sli>{instructionStep.step}</Sli>;
                   })}
                 </ul>
               </div>
@@ -53,5 +73,9 @@ const RecipeDetail = () => {
 export default RecipeDetail;
 const MainDiv = styled.div`
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
+`;
+
+const Sli = styled.li`
+  margin-bottom: 12px;
 `;

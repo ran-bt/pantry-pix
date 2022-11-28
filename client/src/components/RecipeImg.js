@@ -55,7 +55,7 @@ const StyledDiv = styled.div`
   margin: auto;
   width: 200px;
   height: 250px;
-  border: 1px solid green;
+  //border: 1px solid green;
   text-align: center;
   position: relative;
 `;

@@ -8,7 +8,12 @@ import RightSideBar from "./RightSideBar";
 import RecipeImg from "./RecipeImg";
 import SearchByIngredient from "./SearchByIngredient";
 
-const Home = ({ recipes, setRecipes }) => {
+const Home = ({
+  recipes,
+  setRecipes,
+  searchedByIngResults,
+  setSearchedByIngResults,
+}) => {
   const [value, setValue] = useState("");
   const [value2, setValue2] = useState("");
   const [value3, setValue3] = useState("");
@@ -17,43 +22,13 @@ const Home = ({ recipes, setRecipes }) => {
   const key = process.env.REACT_APP_API_KEY;
   const key1 = process.env.REACT_APP_API_KEY1;
 
-  //const [recipes, setRecipes] = useState(null);
-  // console.log(process.env.REACT_APP_API_KEY);
-
-  //   const clickHandler = () => {
-  //     let search = "";
-  //     if (value) {
-  //       search += value;
-  //     }
-  //     if (value2) {
-  //       search += `,+${value2}`;
-  //     }
-  //     if (value3) {
-  //       search += `,+${value3}`;
-  //     }
-  //     if (value4) {
-  //       search += `,+${value4}`;
-  //     }
-  //     if (value5) {
-  //       search += `,+${value5}`;
-  //     }
-  //     fetch(
-  //       `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${key1}&ingredients=${search}&number=5`
-  //     )
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //         setRecipes(data);
-  //       });
-  //   };
-
   useEffect(() => {
     fetch(
       `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${key1}&ingredients=pineapples,+flour,+rice,+chicken&number=5`
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        //   console.log(data);
         setRecipes(data);
       });
   }, []);
@@ -61,112 +36,31 @@ const Home = ({ recipes, setRecipes }) => {
   return !recipes ? (
     <>
       <StyledLoading>{/* <SpinnerCircular /> */}</StyledLoading>
-
-      {/*  <button
-          onClick={() => {
-            clickHandler();
-          }}
-        >
-          Submit
-        </button>
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-        />
-        list ingredients
-        <input
-          type="text"
-          value={value2}
-          onChange={(e) => {
-            setValue2(e.target.value);
-          }}
-        />
-        <input
-          type="text"
-          value={value3}
-          onChange={(e) => {
-            setValue3(e.target.value);
-          }}
-        />
-        <input
-          type="text"
-          value={value4}
-          onChange={(e) => {
-            setValue4(e.target.value);
-          }}
-        />
-        <input
-          type="text"
-          value={value5}
-          onChange={(e) => {
-            setValue5(e.target.value);
-          }}
-        /> 
-      </div>*/}
     </>
   ) : (
     <>
-      <BgImage />
+      <BgImage url="/headerImg1.jpg" />
       <StyledContainer>
         <LeftSideBar />
 
         <StyledBox>
-          {/* <StyledNavContainer>
-            <NavBar>
-              <StyledNavLink to={"#"}>Home</StyledNavLink>
-              <StyledNavLink to={"#"}>Search By Ingredient</StyledNavLink>
-              <StyledNavLink to={"#"}>Profile</StyledNavLink>
-              <StyledNavLink to={"#"}>Help</StyledNavLink>
-            </NavBar>
-          </StyledNavContainer> */}
-          <SearchByIngredient />
+          <StyledH2>Whats in your pantry?</StyledH2>
+          <SearchByIngredient
+            searchedByIngResults={searchedByIngResults}
+            setSearchedByIngResults={setSearchedByIngResults}
+          />
           <Cousine>Cuisines</Cousine>
           <StyledMain>
             {recipes.map((recipe) => {
               return (
-                <>
+                <div key={recipe.id}>
                   <RecipeImg recipe={recipe} />
-                </>
-                // <Wrapper>
-                //   <StyledDiv>
-                //     <Link to={`/recipe-detail/${recipe.id}`}>
-                //       <ImageBox>
-                //         <StyledImg src={recipe.image} alt="" />
-                //         <ImageDes>
-                //           <StyledH1>{recipe.title}</StyledH1>
-                //           {/* <StyledH1>{recipe.id}</StyledH1> */}
-                //         </ImageDes>
-                //       </ImageBox>
-                //     </Link>
-                //   </StyledDiv>
-
-                //   {/* <StyledP>{recipe.missedIngredientCount}</StyledP> */}
-                // </Wrapper>
+                </div>
               );
             })}
           </StyledMain>
         </StyledBox>
         <RightSideBar />
-        {/* <div>
-        <button
-          onClick={() => {
-            clickHandler();
-          }}
-        >
-          Submit
-        </button>
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-        />
-        list ingredients
-      </div> */}
       </StyledContainer>
     </>
   );
@@ -249,6 +143,13 @@ const ImageDes = styled.div``;
 
 const Cousine = styled.h2`
   margin-top: 45px;
+  color: #509e2f;
+  font-family: "Montez", cursive;
+  font-size: 50px;
+`;
+const StyledH2 = styled.h2`
+  // margin-top: 45px;
+  margin-bottom: 10px;
   color: #509e2f;
   font-family: "Montez", cursive;
   font-size: 50px;

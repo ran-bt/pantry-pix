@@ -1,33 +1,62 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import IngredientsList from "./IngredientsList";
 
 const Test = () => {
   const [state, setState] = useState([]);
-  const [ing, setIng] = useState([]);
+  const [tasks, setTasks] = useState([]);
+  const [newArray, SetnewArray] = useState([]);
+
   console.log(state);
-  let ingredients = [];
-  const clickHandler = (e) => {
-    //console.log(e.target.value);
+  //let ingredients = [];
+
+  const addTask = (task) => {
+    setTasks((prevState) => [...prevState, task]);
   };
+  const deleteTask = (id) => {
+    setTasks((prevState) => prevState.filter((task) => task.id !== id));
+  };
+  const clickHandler = (e) => {
+    e.preventDefault();
+    addTask({
+      name: state,
+      id: Date.now(),
+    });
+  };
+
+  useEffect(() => {
+    SetnewArray((prevState) => [...prevState]);
+    let newArr = [...tasks];
+    let addUrl = "";
+    newArr.forEach((task, index) => {
+      if (index >= 1) {
+        addUrl += `,+${task.name}`;
+      } else {
+        addUrl += task.name;
+      }
+    });
+
+    console.log(addUrl);
+  }, [tasks]);
+
   return (
-    <form>
-      <input
-        type="text"
-        value={state}
-        onChange={(e) => {
-          //console.log(e.target.value);
-          setState(e.target.value);
-          ingredients.push(e.target.value);
-          console.log(ingredients);
-        }}
-      />
-      <button
-        onClick={(e) => {
-          clickHandler();
+    <div>
+      <form
+        onSubmit={(e) => {
+          clickHandler(e);
         }}
       >
-        add
-      </button>
-    </form>
+        <input
+          type="text"
+          value={state}
+          onChange={(e) => {
+            //console.log(e.target.value);
+            setState(e.target.value);
+          }}
+        />
+        <button type="submit">add</button>
+      </form>
+      {!state ? "" : <IngredientsList deleteTask={deleteTask} tasks={tasks} />}
+    </div>
   );
 };
 

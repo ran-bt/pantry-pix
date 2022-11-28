@@ -5,7 +5,7 @@ import { MdSearch } from "react-icons/md";
 const Header = () => {
   return (
     <StyledContainer>
-      <StyledLink to={"/"}>PANTRYpix</StyledLink>
+      <StyledLink to={"/"}>PANTRYpicks</StyledLink>
       <StyledForm>
         <StyledInput type="text" placeholder="search..." name="search" />
         <StyledButton type="submit">
@@ -21,7 +21,7 @@ const Header = () => {
 
 const StyledContainer = styled.header`
   //  width: 100vw;
-  height: 40px;
+  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -32,6 +32,7 @@ const StyledContainer = styled.header`
 
 const StyledLink = styled(Link)`
   color: white;
+  font-size: 30px;
   text-decoration: none;
   padding-left: 20px;
 `;
