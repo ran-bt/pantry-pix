@@ -7,6 +7,7 @@ import LeftSideBar from "./LeftSideBar";
 import RightSideBar from "./RightSideBar";
 import RecipeImg from "./RecipeImg";
 import SearchByIngredient from "./SearchByIngredient";
+import Test from "./IngredientSearch";
 
 const Home = ({
   recipes,
@@ -45,10 +46,11 @@ const Home = ({
 
         <StyledBox>
           <StyledH2>Whats in your pantry?</StyledH2>
-          <SearchByIngredient
+          {/* <SearchByIngredient
             searchedByIngResults={searchedByIngResults}
             setSearchedByIngResults={setSearchedByIngResults}
-          />
+          /> */}
+          <Test />
           <Cousine>Cuisines</Cousine>
           <StyledMain>
             {recipes.map((recipe) => {

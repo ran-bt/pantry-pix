@@ -10,7 +10,7 @@ import Home from "./Home";
 import Profile from "./Profile";
 import RecipeDetail from "./RecipeDetail";
 import SearchByIngredient from "./SearchByIngredient";
-import Test from "./Test";
+import Test from "./IngredientSearch";
 
 const App = () => {
   const [recipes, setRecipes] = useState(null);

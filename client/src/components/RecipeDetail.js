@@ -55,12 +55,17 @@ const RecipeDetail = ({ recipes }) => {
           {instructions.analyzedInstructions.map((instruction) => {
             return (
               <div>
-                <ul>
+                <div>
                   {" "}
                   {instruction.steps.map((instructionStep) => {
-                    return <Sli>{instructionStep.step}</Sli>;
+                    return (
+                      <StyledInstructionP>
+                        <span>Step: {instructionStep.number}</span>
+                        {instructionStep.step}
+                      </StyledInstructionP>
+                    );
                   })}
-                </ul>
+                </div>
               </div>
             );
           })}
@@ -76,6 +81,13 @@ const MainDiv = styled.div`
   // flex-direction: column;
 `;
 
-const Sli = styled.li`
+const StyledInstructionP = styled.p`
   margin-bottom: 12px;
+
+  padding: 15;
+  //list-style: circle;
+  span {
+    font-weight: bold;
+    color: green;
+  }
 `;
