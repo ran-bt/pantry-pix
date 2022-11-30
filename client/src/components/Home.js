@@ -8,6 +8,7 @@ import RightSideBar from "./RightSideBar";
 import RecipeImg from "./RecipeImg";
 import SearchByIngredient from "./SearchByIngredient";
 import Test from "./IngredientSearch";
+import Footer from "./Footer";
 
 const Home = ({
   recipes,
@@ -39,13 +40,13 @@ const Home = ({
       <StyledLoading>{/* <SpinnerCircular /> */}</StyledLoading>
     </>
   ) : (
-    <>
+    <MainBody>
       <BgImage url="/headerImg1.jpg" />
       <StyledContainer>
         <LeftSideBar />
 
         <StyledBox>
-          <StyledH2>Whats in your pantry?</StyledH2>
+          <StyledH2>What's in your pantry?</StyledH2>
           {/* <SearchByIngredient
             searchedByIngResults={searchedByIngResults}
             setSearchedByIngResults={setSearchedByIngResults}
@@ -64,11 +65,17 @@ const Home = ({
         </StyledBox>
         <RightSideBar />
       </StyledContainer>
-    </>
+      {/* <FooterDiv>
+        <Footer />
+      </FooterDiv> */}
+    </MainBody>
   );
 };
 
 export default Home;
+const MainBody = styled.div`
+  min-height: 100vh;
+`;
 const StyledLoading = styled.div`
   position: absolute;
   /* display: flex;
@@ -156,3 +163,10 @@ const StyledH2 = styled.h2`
   font-family: "Montez", cursive;
   font-size: 50px;
 `;
+// const FooterDiv = styled.div`
+//   background-color: black;
+//   position: sticky;
+//   top: 100%;
+//   margin: 0;
+//   padding: 0;
+// `;

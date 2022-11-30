@@ -13,21 +13,30 @@
 //   );
 // };
 
+import styled from "styled-components";
+
 // export default TaskItem;
 
 const TaskItem = ({ task, deleteTask }) => {
   return (
     <li>
       {task.name}
-      <button
+      <StyledButton
         onClick={() => {
           deleteTask(task.id);
         }}
       >
-        delete
-      </button>
+        X
+      </StyledButton>
     </li>
   );
 };
 
 export default TaskItem;
+const StyledButton = styled.button`
+  color: red;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+`;

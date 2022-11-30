@@ -76,14 +76,17 @@ const Test = () => {
           clickHandler(e);
         }}
       >
-        <StyledInput
-          type="text"
-          value={state}
-          onChange={(e) => {
-            //console.log(e.target.value);
-            setState(e.target.value);
-          }}
-        />
+        <StyledInputContainer>
+          <StyledInput
+            placeholder="add ingredient.."
+            type="text"
+            value={state}
+            onChange={(e) => {
+              //console.log(e.target.value);
+              setState(e.target.value);
+            }}
+          />
+        </StyledInputContainer>
         <StyledAddButton type="submit">add</StyledAddButton>
       </StyledForm>
       <StyledBox>
@@ -93,13 +96,15 @@ const Test = () => {
           <IngredientsList deleteTask={deleteTask} tasks={tasks} />
         )}
       </StyledBox>
-      <StyledButton
-        onClick={() => {
-          clickHandler2();
-        }}
-      >
-        Find Recipes
-      </StyledButton>
+      <ButtonContainer>
+        <StyledButton
+          onClick={() => {
+            clickHandler2();
+          }}
+        >
+          Find Recipes
+        </StyledButton>
+      </ButtonContainer>
       {!recipes ? (
         <></>
       ) : (
@@ -119,6 +124,8 @@ const Test = () => {
 
 export default Test;
 const StyledAddButton = styled.button`
+  margin-left: -5px;
+  width: 5vw;
   color: white;
   background-color: black;
   border: none;
@@ -132,6 +139,10 @@ const StyledForm = styled.form`
   //justify-content: center;
   background-color: #fafafa;
 `;
+const StyledInputContainer = styled.div`
+  width: 100%;
+  background-color: black;
+`;
 const StyledInput = styled.input`
   width: 50vw;
   border: 2px solid black;
@@ -139,12 +150,20 @@ const StyledInput = styled.input`
 `;
 const StyledBox = styled.div`
   margin: auto;
-  width: 54vw;
+  width: 100%;
   height: 150px;
   background-color: #fafafa;
   // background-color: red;
   //background-image: url("/mockup-graphics-C4AQnyn59oU-unsplash.jpg");
-  overflow: scroll;
+  overflow-x: hidden;
+  border: 1px solid rgb(232, 232, 232);
+  padding: 20px 10px;
+`;
+
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 const StyledButton = styled.button`

@@ -19,19 +19,25 @@
 
 // export default IngredientsList;
 
+import styled from "styled-components";
 import TaskItem from "./TaskItem";
 
 const IngredientsList = ({ tasks, deleteTask }) => {
   //   return <ul className={styles.tasks}></ul>;
   return (
-    <ul>
+    <StyledUl>
       {tasks
         .sort((a, b) => b.id - a.id)
         .map((task) => (
           <TaskItem deleteTask={deleteTask} key={task.id} task={task} />
         ))}
-    </ul>
+    </StyledUl>
   );
 };
 
+const StyledUl = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+`;
 export default IngredientsList;

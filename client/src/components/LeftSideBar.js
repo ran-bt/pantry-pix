@@ -40,7 +40,7 @@ const LeftSideBar = () => {
   );
 };
 const StyledMain = styled.div`
-  display: flex;
+   display: flex;
   flex-direction: column;
 `;
 

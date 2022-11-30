@@ -46,7 +46,7 @@ const App = () => {
         <Route path="/search" element={<SearchByIngredient />} />
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </BrowserRouter>
   );
 };
