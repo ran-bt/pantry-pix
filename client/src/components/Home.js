@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import BgImage from "./BgImage";
@@ -9,6 +9,8 @@ import RecipeImg from "./RecipeImg";
 import SearchByIngredient from "./SearchByIngredient";
 import Test from "./IngredientSearch";
 import Footer from "./Footer";
+import { useAuth0 } from "@auth0/auth0-react";
+import { CurrentUserContext } from "./CurrentUserContext";
 
 const Home = ({
   recipes,
@@ -21,13 +23,35 @@ const Home = ({
   const [value3, setValue3] = useState("");
   const [value4, setValue4] = useState("");
   const [value5, setValue5] = useState("");
-  const key = process.env.REACT_APP_API_KEY;
+  //const key = process.env.REACT_APP_API_KEY;
   const key1 = process.env.REACT_APP_API_KEY1;
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { user, isAuthenticated } = useAuth0();
 
   useEffect(() => {
-    fetch(
-      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${key1}&ingredients=pineapples,+flour,+rice,+chicken&number=5`
-    )
+    if (isAuthenticated) {
+      fetch("/createuser", {
+        method: "POST",
+        body: JSON.stringify({
+          email: user.email,
+          name: user.name,
+          likedRecipeId: [],
+        }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          //   console.log(data);
+          setCurrentUser(data.data);
+        });
+    }
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    fetch("/recipes")
       .then((res) => res.json())
       .then((data) => {
         //   console.log(data);

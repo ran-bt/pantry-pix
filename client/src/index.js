@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./components/App";
 import { Auth0Provider } from "@auth0/auth0-react";
+import CurrentUserProvider from "./components/CurrentUserContext";
 
 const domain = "dev-s0w21xn6u1tjqagb.us.auth0.com";
 const clientId = "6RK0JgQLyH3zd1Vdzn1KOHNT7xrSLaRo";
@@ -17,7 +18,9 @@ root.render(
       redirectUri={window.location.origin}
       //redirectUri={"http://localhost:3001"}
     >
-      <App />
+      <CurrentUserProvider>
+        <App />
+      </CurrentUserProvider>
     </Auth0Provider>
   </React.StrictMode>
 );

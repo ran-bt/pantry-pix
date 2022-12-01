@@ -50,17 +50,31 @@ const RecipeDetail = ({ recipes }) => {
     <>
       <BgImage url={instructions.image} />
       <MainDiv>
-        <LeftSideBar />
+        {/* <LeftSideBar /> */}
+        <div>
+          {instructions.extendedIngredients.map((item) => {
+            return (
+              <div key={item.originalName}>
+                <img src={item.image} alt={item.originalName} />
+
+                <p>{item.originalName}</p>
+              </div>
+            );
+          })}
+        </div>
         <div>
           {instructions.analyzedInstructions.map((instruction) => {
             return (
               <div>
+                <h2>Ingredients</h2>
+                <h2>{instructions.title}</h2>
+                <p>Cook time: {instructions.readyInMinutes} minutes</p>
                 <div>
                   {" "}
                   {instruction.steps.map((instructionStep) => {
                     return (
                       <StyledInstructionP>
-                        <span>Step: {instructionStep.number}</span>
+                        <span>Step {instructionStep.number}:</span>
                         {instructionStep.step}
                       </StyledInstructionP>
                     );
@@ -78,7 +92,7 @@ const RecipeDetail = ({ recipes }) => {
 export default RecipeDetail;
 const MainDiv = styled.div`
   display: flex;
-  // flex-direction: column;
+  flex-direction: column;
 `;
 
 const StyledInstructionP = styled.p`
@@ -88,6 +102,8 @@ const StyledInstructionP = styled.p`
   //list-style: circle;
   span {
     font-weight: bold;
-    color: green;
+    font-size: 18px;
+    padding-right: 15px;
   }
 `;
+const TextArea = styled.input``;
