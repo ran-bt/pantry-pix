@@ -1,16 +1,47 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FiHeart } from "react-icons/fi";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { CurrentUserContext } from "./CurrentUserContext";
+
 const RecipeImg = ({ recipe }) => {
   const [liked, setLiked] = useState(false);
-  // return (
-  //   <StyledMain>
-  //     {recipes.map((recipe) => {
+
+  const { likedRecipes, setLikedRecipes } = useContext(CurrentUserContext);
+
+  const callfunc = () => {
+    if (!liked) {
+      setLikedRecipes((previousState) => [...previousState, recipe.id]);
+    } else {
+      setLikedRecipes((previousState) => {
+        const filterd = previousState.filter(
+          (likedRecipe) => likedRecipe !== recipe.id
+        );
+
+        return filterd;
+      });
+    }
+  };
+
+  const clickHandler = () => {
+    setLiked(!liked);
+    callfunc();
+
+    //&& likedRecipes.length() > 0
+    // if (liked === true) {
+    //   setLikedRecipes((previousState) => [...previousState, recipe.id]);
+    // } else {
+    //   likedRecipes.filter((likedRecipe) => likedRecipe.id !== recipe.id);
+
+    // const removeRecipe = likedRecipes.filter(
+    //   (likedRecipe) => likedRecipe.id !== recipe.id
+    // );
+  };
+
   return (
     <Wrapper>
       <StyledDiv>
-        <StyledHeart onClick={() => setLiked(!liked)}>
+        <StyledHeart onClick={clickHandler}>
           {!liked ? (
             <FiHeart color="green" fill="white" size="25px" />
           ) : (

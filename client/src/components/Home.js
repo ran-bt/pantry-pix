@@ -18,14 +18,10 @@ const Home = ({
   searchedByIngResults,
   setSearchedByIngResults,
 }) => {
-  const [value, setValue] = useState("");
-  const [value2, setValue2] = useState("");
-  const [value3, setValue3] = useState("");
-  const [value4, setValue4] = useState("");
-  const [value5, setValue5] = useState("");
   //const key = process.env.REACT_APP_API_KEY;
   const key1 = process.env.REACT_APP_API_KEY1;
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser, likedRecipes } =
+    useContext(CurrentUserContext);
   const { user, isAuthenticated } = useAuth0();
 
   useEffect(() => {
@@ -35,7 +31,7 @@ const Home = ({
         body: JSON.stringify({
           email: user.email,
           name: user.name,
-          likedRecipeId: [],
+          likedRecipeId: [likedRecipes],
         }),
         headers: {
           Accept: "application/json",

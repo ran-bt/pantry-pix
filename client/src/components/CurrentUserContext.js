@@ -10,6 +10,7 @@ const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [status, setStatus] = useState("loading");
   const [isLoggedin, setIsLoggedIn] = useState(false);
+  const [likedRecipes, setLikedRecipes] = useState([]);
   // Fetch the user data from the server
   // When the data is received, update currentUser.
   // Also, set `status` to `idle`
@@ -34,7 +35,14 @@ const CurrentUserProvider = ({ children }) => {
     <p>Loading!!!!...</p>
   ) : (
     <CurrentUserContext.Provider
-      value={{ currentUser, setCurrentUser, status, setStatus }}
+      value={{
+        currentUser,
+        setCurrentUser,
+        status,
+        setStatus,
+        likedRecipes,
+        setLikedRecipes,
+      }}
     >
       {children}
     </CurrentUserContext.Provider>
