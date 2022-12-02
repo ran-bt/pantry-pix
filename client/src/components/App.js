@@ -42,6 +42,7 @@ const App = () => {
           }
         />
         <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/test" element={<Test />} />
         <Route path="/search" element={<SearchByIngredient />} />
         <Route path="/*" element={<ErrorPage />} />

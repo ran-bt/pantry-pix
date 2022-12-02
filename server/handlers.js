@@ -30,7 +30,9 @@ const addNewUser = async (req, res) => {
       });
     } else {
       const accountInfo = req.body;
-      const newUser = await db.collection("users").insertOne(accountInfo);
+      const newUser = await db
+        .collection("users")
+        .insertOne({ _id: uuidv4(), ...accountInfo });
       res.status(200).json({
         status: 200,
         message: `User registered. `,
@@ -71,7 +73,7 @@ const addNewUser = async (req, res) => {
 const getRecipes = async (req, res) => {
   try {
     const response = await request(
-      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${REACT_APP_API_KEY}&ingredients=pineapples,+flour,+rice,+chicken&number=5`
+      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${REACT_APP_API_KEY1}&ingredients=pineapples,+flour,+rice,+chicken&number=5`
     );
 
     res.status(200).send(response);
@@ -176,14 +178,14 @@ const addLikedRecipe = async (req, res) => {
   const userId = parseInt(id);
   console.log(userId);
   try {
-    const likedRecipes = req.body;
-    console.log(likedRecipes);
+    const likedRecipes = req.body.likedRecipeId;
+    console.log("LIKED RECIPES", likedRecipes);
     if (likedRecipes) {
       await client.connect();
       const db = client.db("pantry");
 
       const users = await db.collection("users").updateOne(
-        { _id: ObjectId(String(req.params.id)) },
+        { _id: req.params.id },
         {
           $set: {
             likedRecipeId: likedRecipes,
@@ -193,7 +195,7 @@ const addLikedRecipe = async (req, res) => {
       console.log("USERS ARRAY", users);
       const updatedUserData = await db
         .collection("users")
-        .findOne({ _id: ObjectId(String(req.params.id)) });
+        .findOne({ _id: req.params.id });
       console.log("updated User", updatedUserData);
       res.status(200).json({
         status: 200,

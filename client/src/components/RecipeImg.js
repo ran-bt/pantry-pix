@@ -10,6 +10,7 @@ const RecipeImg = ({ recipe }) => {
   const { user, isAuthenticated } = useAuth0();
   const { likedRecipes, setLikedRecipes, currentUser, setCurrentUser } =
     useContext(CurrentUserContext);
+  console.log("hi");
   console.log(currentUser);
   //adding liked resipes in the database
   useEffect(() => {
@@ -17,10 +18,10 @@ const RecipeImg = ({ recipe }) => {
       fetch(`/addlikedrecipe/${currentUser._id}`, {
         method: "PATCH",
         body: JSON.stringify({
-          name: currentUser.name,
-          email: currentUser.email,
-          likedRecipeId: [{ likedRecipes: likedRecipes }],
-          createdRecipes: [],
+          // name: currentUser.name,
+          // email: currentUser.email,
+          likedRecipeId: likedRecipes,
+          //createdRecipes: [],
         }),
         headers: {
           Accept: "application/json",
@@ -29,8 +30,9 @@ const RecipeImg = ({ recipe }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          //   console.log(data);
-          setCurrentUser(data.data);
+          console.log("DATA", data.data);
+          //setCurrentUser((currentUser.likedRecipeId = data.data));
+          setCurrentUser({ ...currentUser, likedRecipeId: data.data });
         });
     }
   }, [likedRecipes]);

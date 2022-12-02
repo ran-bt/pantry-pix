@@ -18,8 +18,8 @@ const Home = ({
   searchedByIngResults,
   setSearchedByIngResults,
 }) => {
-  const key = process.env.REACT_APP_API_KEY;
-  //const key1 = process.env.REACT_APP_API_KEY1;
+  //const key = process.env.REACT_APP_API_KEY;
+  const key1 = process.env.REACT_APP_API_KEY1;
 
   const { currentUser, setCurrentUser, likedRecipes } =
     useContext(CurrentUserContext);
@@ -42,7 +42,7 @@ const Home = ({
       })
         .then((res) => res.json())
         .then((data) => {
-          //   console.log(data);
+          console.log("HOME", data);
           setCurrentUser(data.data);
         });
     }
@@ -76,9 +76,9 @@ const Home = ({
           <Test />
           <Cousine>Cuisines</Cousine>
           <StyledMain>
-            {recipes.map((recipe) => {
+            {recipes?.map((recipe) => {
               return (
-                <div key={recipe.id}>
+                <div key1={recipe.id}>
                   <RecipeImg recipe={recipe} />
                 </div>
               );

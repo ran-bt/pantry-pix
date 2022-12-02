@@ -11,16 +11,14 @@ const clientId = "6RK0JgQLyH3zd1Vdzn1KOHNT7xrSLaRo";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Auth0Provider
-      domain={domain}
-      clientId={clientId}
-      redirectUri={window.location.origin}
-      //redirectUri={"http://localhost:3001"}
-    >
-      <CurrentUserProvider>
-        <App />
-      </CurrentUserProvider>
-    </Auth0Provider>
-  </React.StrictMode>
+  <Auth0Provider
+    domain={domain}
+    clientId={clientId}
+    redirectUri={window.location.origin}
+    //redirectUri={"http://localhost:3001"}
+  >
+    <CurrentUserProvider>
+      <App />
+    </CurrentUserProvider>
+  </Auth0Provider>
 );

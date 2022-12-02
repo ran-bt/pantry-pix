@@ -18,13 +18,13 @@ const RecipeDetail = ({ recipes }) => {
   // console.log("selected Recipe", selectedRecipe);
   // console.log("selected id", id);
 
-  const key = process.env.REACT_APP_API_KEY;
-  //const key1 = process.env.REACT_APP_API_KEY1;
+  //const key = process.env.REACT_APP_API_KEY;
+  const key1 = process.env.REACT_APP_API_KEY1;
 
   //fetching list of ingredients
   useEffect(() => {
     fetch(
-      `https://api.spoonacular.com/recipes/${id}/information?apiKey=${key}&includeNutrition=false`
+      `https://api.spoonacular.com/recipes/${id}/information?apiKey=${key1}&includeNutrition=false`
     )
       .then((res) => res.json())
       .then((data) => {

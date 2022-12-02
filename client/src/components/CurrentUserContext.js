@@ -7,7 +7,7 @@ export const CurrentUserContext = createContext(null);
 
 const CurrentUserProvider = ({ children }) => {
   const { user, isAuthenticated } = useAuth0();
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState();
   const [status, setStatus] = useState("loading");
   const [isLoggedin, setIsLoggedIn] = useState(false);
   const [likedRecipes, setLikedRecipes] = useState([]);

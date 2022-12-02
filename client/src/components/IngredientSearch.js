@@ -12,8 +12,8 @@ const Test = () => {
 
   //⬇ 2 API Keys to alternate if we run the daily request limit ⬇
 
-  const key = process.env.REACT_APP_API_KEY;
-  //const key1 = process.env.REACT_APP_API_KEY1;
+  //const key = process.env.REACT_APP_API_KEY;
+  const key1 = process.env.REACT_APP_API_KEY1;
 
   const addTask = (task) => {
     setTasks((prevState) => [...prevState, task]);
@@ -46,7 +46,7 @@ const Test = () => {
     });
 
     fetch(
-      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${key}&ingredients=${addUrl}&number=12`
+      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${key1}&ingredients=${addUrl}&number=12`
     )
       .then((res) => res.json())
       .then((data) => {
