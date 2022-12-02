@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FiHeart } from "react-icons/fi";
 import { useContext, useEffect, useState } from "react";
@@ -8,13 +8,18 @@ import { useAuth0 } from "@auth0/auth0-react";
 const RecipeImg = ({ recipe }) => {
   const [liked, setLiked] = useState(false);
   const { user, isAuthenticated } = useAuth0();
+
+  const navigate = useNavigate();
+
+  //Get required states from currentUserContext
   const { likedRecipes, setLikedRecipes, currentUser, setCurrentUser } =
     useContext(CurrentUserContext);
-  console.log("hi");
-  console.log(currentUser);
+
+  //console.log("hi");
+  //console.log(currentUser);
   //adding liked resipes in the database
   useEffect(() => {
-    if (liked) {
+    if (liked && currentUser) {
       fetch(`/addlikedrecipe/${currentUser._id}`, {
         method: "PATCH",
         body: JSON.stringify({
@@ -69,7 +74,11 @@ const RecipeImg = ({ recipe }) => {
   return (
     <Wrapper>
       <StyledDiv>
-        <StyledHeart onClick={clickHandler}>
+        <StyledHeart
+          onClick={() => {
+            !isAuthenticated ? navigate("/test") : clickHandler();
+          }}
+        >
           {!liked ? (
             <FiHeart color="green" fill="white" size="25px" />
           ) : (

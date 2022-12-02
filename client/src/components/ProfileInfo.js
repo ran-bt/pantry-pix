@@ -1,4 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const ProfileInfo = () => {
@@ -7,9 +8,9 @@ const ProfileInfo = () => {
     isAuthenticated && (
       <StyledMain>
         {user?.picture && (
-          <ImgBox>
+          <NavLink to={"/profile"}>
             <StyledImg src={user.picture} alt={user?.name} />
-          </ImgBox>
+          </NavLink>
         )}
 
         {/* 
