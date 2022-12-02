@@ -14,11 +14,11 @@ const RecipeImg = ({ recipe }) => {
   //adding liked resipes in the database
   useEffect(() => {
     if (liked) {
-      fetch("/addlikedrecipe/:id", {
+      fetch(`/addlikedrecipe/${currentUser._id}`, {
         method: "PATCH",
         body: JSON.stringify({
-          name: user.name,
-          email: user.email,
+          name: currentUser.name,
+          email: currentUser.email,
           likedRecipeId: [{ likedRecipes: likedRecipes }],
           createdRecipes: [],
         }),

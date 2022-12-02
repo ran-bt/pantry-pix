@@ -5,6 +5,7 @@ const { v4: uuidv4 } = require("uuid");
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 const { REACT_APP_API_KEY1 } = process.env;
+const { REACT_APP_API_KEY } = process.env;
 
 const options = {
   useNewUrlParser: true,
@@ -70,7 +71,7 @@ const addNewUser = async (req, res) => {
 const getRecipes = async (req, res) => {
   try {
     const response = await request(
-      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${REACT_APP_API_KEY1}&ingredients=pineapples,+flour,+rice,+chicken&number=5`
+      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${REACT_APP_API_KEY}&ingredients=pineapples,+flour,+rice,+chicken&number=5`
     );
 
     res.status(200).send(response);
@@ -182,7 +183,7 @@ const addLikedRecipe = async (req, res) => {
       const db = client.db("pantry");
 
       const users = await db.collection("users").updateOne(
-        { _id: req.params.id },
+        { _id: ObjectId(String(req.params.id)) },
         {
           $set: {
             likedRecipeId: likedRecipes,
@@ -192,12 +193,12 @@ const addLikedRecipe = async (req, res) => {
       console.log("USERS ARRAY", users);
       const updatedUserData = await db
         .collection("users")
-        .findOne({ _id: req.params.id });
+        .findOne({ _id: ObjectId(String(req.params.id)) });
       console.log("updated User", updatedUserData);
       res.status(200).json({
         status: 200,
         message: "Congrats!! You liked/unliked a recipe",
-        data: updatedUserData,
+        data: updatedUserData.likedRecipeId,
       });
     } else {
       res.status(404).json({

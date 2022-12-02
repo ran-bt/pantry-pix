@@ -18,8 +18,8 @@ const Home = ({
   searchedByIngResults,
   setSearchedByIngResults,
 }) => {
-  //const key = process.env.REACT_APP_API_KEY;
-  const key1 = process.env.REACT_APP_API_KEY1;
+  const key = process.env.REACT_APP_API_KEY;
+  //const key1 = process.env.REACT_APP_API_KEY1;
 
   const { currentUser, setCurrentUser, likedRecipes } =
     useContext(CurrentUserContext);
