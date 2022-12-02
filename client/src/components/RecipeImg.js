@@ -1,13 +1,39 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FiHeart } from "react-icons/fi";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const RecipeImg = ({ recipe }) => {
   const [liked, setLiked] = useState(false);
-
-  const { likedRecipes, setLikedRecipes } = useContext(CurrentUserContext);
+  const { user, isAuthenticated } = useAuth0();
+  const { likedRecipes, setLikedRecipes, currentUser, setCurrentUser } =
+    useContext(CurrentUserContext);
+  console.log(currentUser);
+  //adding liked resipes in the database
+  useEffect(() => {
+    if (liked) {
+      fetch("/addlikedrecipe/:id", {
+        method: "PATCH",
+        body: JSON.stringify({
+          name: user.name,
+          email: user.email,
+          likedRecipeId: [{ likedRecipes: likedRecipes }],
+          createdRecipes: [],
+        }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          //   console.log(data);
+          setCurrentUser(data.data);
+        });
+    }
+  }, [likedRecipes]);
 
   const callfunc = () => {
     if (!liked) {

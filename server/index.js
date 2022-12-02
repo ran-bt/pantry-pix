@@ -1,7 +1,13 @@
 const express = require("express");
 const { default: helmet } = require("helmet");
 const morgan = require("morgan");
-const { getProfile, addRecipe, getRecipes, addNewUser } = require("./handlers");
+const {
+  getProfile,
+  addRecipe,
+  getRecipes,
+  addNewUser,
+  addLikedRecipe,
+} = require("./handlers");
 
 const port = 3000;
 
@@ -19,6 +25,7 @@ app.get("/recipes", getRecipes);
 app.get("/profile/:id", getProfile);
 app.post("/createuser", addNewUser);
 app.post("/addrecipe/:id", addRecipe);
+app.patch("/addlikedrecipe/:id", addLikedRecipe);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

@@ -20,6 +20,7 @@ const Home = ({
 }) => {
   //const key = process.env.REACT_APP_API_KEY;
   const key1 = process.env.REACT_APP_API_KEY1;
+
   const { currentUser, setCurrentUser, likedRecipes } =
     useContext(CurrentUserContext);
   const { user, isAuthenticated } = useAuth0();
@@ -29,9 +30,10 @@ const Home = ({
       fetch("/createuser", {
         method: "POST",
         body: JSON.stringify({
-          email: user.email,
           name: user.name,
-          likedRecipeId: [likedRecipes],
+          email: user.email,
+          likedRecipeId: likedRecipes,
+          createdRecipes: [],
         }),
         headers: {
           Accept: "application/json",

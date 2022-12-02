@@ -167,9 +167,56 @@ const addRecipe = async (req, res) => {
   }
 };
 
+/// this function adds the user's liked recipes to the database and returns the updated document
+
+const addLikedRecipe = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  const id = req.params.id;
+  const userId = parseInt(id);
+  console.log(userId);
+  try {
+    const likedRecipes = req.body;
+    console.log(likedRecipes);
+    if (likedRecipes) {
+      await client.connect();
+      const db = client.db("pantry");
+
+      const users = await db.collection("users").updateOne(
+        { _id: req.params.id },
+        {
+          $set: {
+            likedRecipeId: likedRecipes,
+          },
+        }
+      );
+      console.log("USERS ARRAY", users);
+      const updatedUserData = await db
+        .collection("users")
+        .findOne({ _id: req.params.id });
+      console.log("updated User", updatedUserData);
+      res.status(200).json({
+        status: 200,
+        message: "Congrats!! You liked/unliked a recipe",
+        data: updatedUserData,
+      });
+    } else {
+      res.status(404).json({
+        status: 404,
+        message: "Missing Information",
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ status: 500, message: err.message });
+  } finally {
+    client.close();
+  }
+};
+
 module.exports = {
   getProfile,
   addRecipe,
   getRecipes,
   addNewUser,
+  addLikedRecipe,
 };
