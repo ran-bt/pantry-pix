@@ -4,6 +4,7 @@ import { FiHeart } from "react-icons/fi";
 import { useContext, useEffect, useState } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { useAuth0 } from "@auth0/auth0-react";
+import SingleRecipe from "./SingleRecipe";
 
 const RecipeImg = ({ recipe }) => {
   const [liked, setLiked] = useState(false);
@@ -72,34 +73,35 @@ const RecipeImg = ({ recipe }) => {
   };
 
   return (
-    <Wrapper>
-      <StyledDiv>
-        <StyledHeart
-          onClick={() => {
-            !isAuthenticated ? navigate("/test") : clickHandler();
-          }}
-        >
-          {!liked ? (
-            <FiHeart color="green" fill="white" size="25px" />
-          ) : (
-            <>
-              <FiHeart color="red" fill="red" size="25px" />
-            </>
-          )}
-        </StyledHeart>
-        <StyledLink to={`/recipe-detail/${recipe.id}`}>
-          <ImageBox>
-            <StyledImg src={recipe.image} alt="" />
-            <ImageDes>
-              <StyledP>{recipe.title}</StyledP>
-              {/* <StyledH1>{recipe.id}</StyledH1> */}
-            </ImageDes>
-          </ImageBox>
-        </StyledLink>
-      </StyledDiv>
+    <SingleRecipe recipe={recipe} clickHandler={clickHandler} liked={liked} />
+    // <Wrapper>
+    //   <StyledDiv>
+    //     <StyledHeart
+    //       onClick={() => {
+    //         !isAuthenticated ? navigate("/test") : clickHandler();
+    //       }}
+    //     >
+    //       {liked || currentUser?.likedRecipeId.includes(recipe.id) ? (
+    //         <FiHeart color="red" fill="red" size="25px" />
+    //       ) : (
+    //         <>
+    //           <FiHeart color="green" fill="white" size="25px" />
+    //         </>
+    //       )}
+    //     </StyledHeart>
+    //     <StyledLink to={`/recipe-detail/${recipe.id}`}>
+    //       <ImageBox>
+    //         <StyledImg src={recipe.image} alt="" />
+    //         <ImageDes>
+    //           <StyledP>{recipe.title}</StyledP>
+    //           {/* <StyledH1>{recipe.id}</StyledH1> */}
+    //         </ImageDes>
+    //       </ImageBox>
+    //     </StyledLink>
+    //   </StyledDiv>
 
-      {/* <StyledP>{recipe.missedIngredientCount}</StyledP> */}
-    </Wrapper>
+    //   {/* <StyledP>{recipe.missedIngredientCount}</StyledP> */}
+    // </Wrapper>
   );
   //     })}
   //   </StyledMain>

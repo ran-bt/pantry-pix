@@ -8,9 +8,11 @@ const ProfileInfo = () => {
     isAuthenticated && (
       <StyledMain>
         {user?.picture && (
-          <NavLink to={"/profile"}>
-            <StyledImg src={user.picture} alt={user?.name} />
-          </NavLink>
+          <StyledLink to={"/profile"}>
+            <ImgBox>
+              <StyledImg src={user.picture} alt={user?.name} />
+            </ImgBox>
+          </StyledLink>
         )}
 
         {/* 
@@ -40,4 +42,7 @@ const StyledImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+`;
+const StyledLink = styled(NavLink)`
+  border-radius: 50%;
 `;
