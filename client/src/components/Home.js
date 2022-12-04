@@ -80,7 +80,7 @@ const Home = ({
           <StyledMain>
             {recipes?.map((recipe) => {
               return (
-                <div key1={recipe.id}>
+                <div key={recipe.id}>
                   <RecipeImg recipe={recipe} />
                 </div>
               );

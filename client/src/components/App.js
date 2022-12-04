@@ -11,6 +11,8 @@ import Profile from "./Profile";
 import RecipeDetail from "./RecipeDetail";
 import SearchByIngredient from "./SearchByIngredient";
 import Test from "./IngredientSearch";
+import CreateRecipe from "./createRecipe/CreateRecipe";
+import AddRecipe from "./createRecipe/AddRecipe";
 
 const App = () => {
   const [recipes, setRecipes] = useState(null);
@@ -45,6 +47,7 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/test" element={<Test />} />
         <Route path="/search" element={<SearchByIngredient />} />
+        <Route path="/createrecipe" element={<AddRecipe />} />
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
       <Footer />

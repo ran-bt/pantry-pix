@@ -60,20 +60,20 @@ const Profile = () => {
         <StyledH2>No Liked recipes</StyledH2>
       ) : (
         <Wrapper>
-          {liked.map((likeResp) => {
+          {liked.map((likeRecp) => {
             return (
-              <StyledDiv>
+              <StyledDiv key={likeRecp.id}>
                 <StyledHeart>
                   <>
                     <FiHeart color="red" fill="red" size="25px" />
                   </>
                 </StyledHeart>
 
-                <StyledLink to={`/recipe-detail/${likeResp.id}`}>
+                <StyledLink to={`/recipe-detail/${likeRecp.id}`}>
                   <ImageBox>
-                    <StyledImg src={likeResp.image} alt="resp" />
+                    <StyledImg src={likeRecp.image} alt="resp" />
                     <ImageDes>
-                      <StyledP>{likeResp.title}</StyledP>
+                      <StyledP>{likeRecp.title}</StyledP>
                     </ImageDes>
                   </ImageBox>
                 </StyledLink>

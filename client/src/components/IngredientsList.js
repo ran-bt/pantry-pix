@@ -23,6 +23,7 @@ import styled from "styled-components";
 import TaskItem from "./TaskItem";
 
 const IngredientsList = ({ tasks, deleteTask }) => {
+  console.log(tasks);
   //   return <ul className={styles.tasks}></ul>;
   return (
     <StyledUl>

@@ -1,7 +1,7 @@
-import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FiHeart } from "react-icons/fi";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -9,8 +9,7 @@ const SingleRecipe = ({ recipe, clickHandler, liked }) => {
   const { isAuthenticated } = useAuth0();
 
   const navigate = useNavigate();
-  const { likedRecipes, setLikedRecipes, currentUser, setCurrentUser } =
-    useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
 
   return (
     <Wrapper>

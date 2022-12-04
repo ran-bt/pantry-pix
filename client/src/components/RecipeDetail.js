@@ -65,7 +65,7 @@ const RecipeDetail = ({ recipes }) => {
         <div>
           {instructions.analyzedInstructions.map((instruction) => {
             return (
-              <div>
+              <div key={Date.now()}>
                 <h2>Ingredients</h2>
                 <h2>{instructions.title}</h2>
                 <p>Cook time: {instructions.readyInMinutes} minutes</p>
@@ -73,7 +73,7 @@ const RecipeDetail = ({ recipes }) => {
                   {" "}
                   {instruction.steps.map((instructionStep) => {
                     return (
-                      <StyledInstructionP>
+                      <StyledInstructionP key={Date.now()}>
                         <span>Step {instructionStep.number}:</span>
                         {instructionStep.step}
                       </StyledInstructionP>

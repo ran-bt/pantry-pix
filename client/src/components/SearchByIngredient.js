@@ -19,7 +19,7 @@ const SearchByIngredient = () => {
   //⬇ 2 API Keys to alternate if we run the daily request limit ⬇
 
   //const key = process.env.REACT_APP_API_KEY;
-   const key1 = process.env.REACT_APP_API_KEY1;
+  const key1 = process.env.REACT_APP_API_KEY1;
 
   // creates a copy of the current state and adds new ingredient
   const addIngredient = (item) => {
@@ -178,7 +178,7 @@ const SearchByIngredient = () => {
         <Wrapper>
           {recipes.map((recipe) => {
             return (
-              <StyledResponse>
+              <StyledResponse key={Date.now()}>
                 <RecipeImg recipe={recipe} />
               </StyledResponse>
             );

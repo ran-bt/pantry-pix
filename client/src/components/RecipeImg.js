@@ -1,33 +1,23 @@
-import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { FiHeart } from "react-icons/fi";
 import { useContext, useEffect, useState } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
-import { useAuth0 } from "@auth0/auth0-react";
 import SingleRecipe from "./SingleRecipe";
 
+//this component will update the user's liked recipes
 const RecipeImg = ({ recipe }) => {
+  //when a user clickes on the like icon the liked state is toggled to true or false
+  //
   const [liked, setLiked] = useState(false);
-  const { user, isAuthenticated } = useAuth0();
-
-  const navigate = useNavigate();
-
-  //Get required states from currentUserContext
   const { likedRecipes, setLikedRecipes, currentUser, setCurrentUser } =
     useContext(CurrentUserContext);
 
-  //console.log("hi");
-  //console.log(currentUser);
-  //adding liked resipes in the database
+  //based on the value od the liked state we will either add or remove the recipe id from the likedRecipe list stored in the database and update the currunt user data in the currentUserContext
+
   useEffect(() => {
     if (liked && currentUser) {
       fetch(`/addlikedrecipe/${currentUser._id}`, {
         method: "PATCH",
         body: JSON.stringify({
-          // name: currentUser.name,
-          // email: currentUser.email,
           likedRecipeId: likedRecipes,
-          //createdRecipes: [],
         }),
         headers: {
           Accept: "application/json",
@@ -37,7 +27,6 @@ const RecipeImg = ({ recipe }) => {
         .then((res) => res.json())
         .then((data) => {
           console.log("DATA", data.data);
-          //setCurrentUser((currentUser.likedRecipeId = data.data));
           setCurrentUser({ ...currentUser, likedRecipeId: data.data });
         });
     }
@@ -60,111 +49,10 @@ const RecipeImg = ({ recipe }) => {
   const clickHandler = () => {
     setLiked(!liked);
     callfunc();
-
-    //&& likedRecipes.length() > 0
-    // if (liked === true) {
-    //   setLikedRecipes((previousState) => [...previousState, recipe.id]);
-    // } else {
-    //   likedRecipes.filter((likedRecipe) => likedRecipe.id !== recipe.id);
-
-    // const removeRecipe = likedRecipes.filter(
-    //   (likedRecipe) => likedRecipe.id !== recipe.id
-    // );
   };
 
   return (
     <SingleRecipe recipe={recipe} clickHandler={clickHandler} liked={liked} />
-    // <Wrapper>
-    //   <StyledDiv>
-    //     <StyledHeart
-    //       onClick={() => {
-    //         !isAuthenticated ? navigate("/test") : clickHandler();
-    //       }}
-    //     >
-    //       {liked || currentUser?.likedRecipeId.includes(recipe.id) ? (
-    //         <FiHeart color="red" fill="red" size="25px" />
-    //       ) : (
-    //         <>
-    //           <FiHeart color="green" fill="white" size="25px" />
-    //         </>
-    //       )}
-    //     </StyledHeart>
-    //     <StyledLink to={`/recipe-detail/${recipe.id}`}>
-    //       <ImageBox>
-    //         <StyledImg src={recipe.image} alt="" />
-    //         <ImageDes>
-    //           <StyledP>{recipe.title}</StyledP>
-    //           {/* <StyledH1>{recipe.id}</StyledH1> */}
-    //         </ImageDes>
-    //       </ImageBox>
-    //     </StyledLink>
-    //   </StyledDiv>
-
-    //   {/* <StyledP>{recipe.missedIngredientCount}</StyledP> */}
-    // </Wrapper>
   );
-  //     })}
-  //   </StyledMain>
-  // );
 };
 export default RecipeImg;
-const Wrapper = styled.div`
-  //display: flex;
-  //flex-direction: column;
-  //width: 200px;
-  // background-color: blue;
-  transition: 0.7s transform;
-  &:hover {
-    box-shadow: 0px 2px 17px -1px #509e2f;
-
-    transform: scale(1.02);
-  }
-`;
-
-const StyledDiv = styled.div`
-  margin: auto;
-  width: 200px;
-  height: 250px;
-  //border: 1px solid green;
-  text-align: center;
-  position: relative;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-`;
-const StyledImgDiv = styled.div`
-  width: 200px;
-`;
-
-const ImageBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const StyledImg = styled.img`
-  width: 195px;
-  object-fit: contain;
-  overflow: hidden;
-`;
-const ImageDes = styled.div``;
-
-const StyledP = styled.p`
-  margin-top: 2px;
-  color: black;
-  font-size: small;
-  font-weight: bold;
-`;
-const StyledHeart = styled(Link)`
-  position: absolute;
-  top: 5px;
-  right: 10px;
-  /* color: white;
-  size: 10px; */
-`;
-// const StyledMain = styled.div`
-//   display: flex;
-//   flex-wrap: wrap;
-//   gap: 2px;
-// `;
