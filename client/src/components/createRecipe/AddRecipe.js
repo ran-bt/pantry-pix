@@ -80,6 +80,7 @@ const AddRecipe = () => {
         //   steps: "instructions",
         // },
         createdRecipe: {
+          recipeId: Date.now(),
           recipeName: recipeName,
           ingredients: ingredients,
           steps: instructions,
@@ -98,97 +99,178 @@ const AddRecipe = () => {
   };
 
   return (
-    <div>
-      <form
-        onSubmit={(e) => {
-          clickHandlerRecipeName(e);
-        }}
-      >
-        <input
-          required
-          type="text"
-          value={recipeName}
-          placeholder="recipe name..."
-          onChange={(e) => {
-            console.log(e.target.value);
-            setRecipeName(e.target.value);
+    <StyledMain>
+      <Wrapper>
+        <StyledForm
+          onSubmit={(e) => {
+            clickHandlerRecipeName(e);
           }}
-        />
-        <StyledAddButton type="submit">add</StyledAddButton>
-      </form>
+        >
+          <StyledInputContainer>
+            <StyledInput1
+              required
+              type="text"
+              value={recipeName}
+              placeholder="recipe name..."
+              onChange={(e) => {
+                console.log(e.target.value);
+                setRecipeName(e.target.value);
+              }}
+            />
+          </StyledInputContainer>
+        </StyledForm>
 
-      <form
-        onSubmit={(e) => {
-          clickHandlerIngredients(e);
-        }}
-      >
-        <input
-          placeholder="add ingredients"
-          type="text"
-          value={recipeValue}
-          onChange={(e) => {
-            console.log(e.target.value);
-            setRecipeValue(e.target.value);
+        <StyledForm
+          onSubmit={(e) => {
+            clickHandlerIngredients(e);
           }}
-        />
-        <StyledAddButton type="submit">add </StyledAddButton>
-      </form>
-      <StyledBox>
-        {!ingredients ? (
-          ""
-        ) : (
-          <IngredientsList deleteTask={deleteIngredient} tasks={ingredients} />
-        )}
-      </StyledBox>
+        >
+          <StyledInputContainer>
+            <StyledInput
+              placeholder="add ingredients"
+              type="text"
+              value={recipeValue}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setRecipeValue(e.target.value);
+              }}
+            />
+          </StyledInputContainer>
+          <StyledAddButton type="submit">add </StyledAddButton>
+        </StyledForm>
+        <StyledBox>
+          {!ingredients ? (
+            ""
+          ) : (
+            <IngredientsList
+              deleteTask={deleteIngredient}
+              tasks={ingredients}
+            />
+          )}
+        </StyledBox>
 
-      <form
-        onSubmit={(e) => {
-          clickHandlerInstruction(e);
-        }}
-      >
-        <input
-          placeholder="add instruction..."
-          type="text"
-          value={instructionValue}
-          onChange={(e) => {
-            console.log(e.target.value);
-            setInstructionValue(e.target.value);
+        <StyledForm
+          onSubmit={(e) => {
+            clickHandlerInstruction(e);
           }}
-        />
-        <StyledAddButton type="submit">add</StyledAddButton>
-      </form>
-      <StyledBox>
-        {!ingredients ? (
-          ""
-        ) : (
-          <IngredientsList
-            deleteTask={deleteInstruction}
-            tasks={instructions}
-          />
-        )}
-      </StyledBox>
-      <button
-        onClick={() => {
-          handleSubmit();
-        }}
-      >
-        Submit Recipe
-      </button>
-    </div>
+        >
+          <StyledInputContainer>
+            <StyledInput
+              placeholder="add instruction..."
+              type="text"
+              value={instructionValue}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setInstructionValue(e.target.value);
+              }}
+            />
+          </StyledInputContainer>
+
+          <StyledAddButton type="submit">add</StyledAddButton>
+        </StyledForm>
+        <StyledBox>
+          {!ingredients ? (
+            ""
+          ) : (
+            <IngredientsList
+              deleteTask={deleteInstruction}
+              tasks={instructions}
+            />
+          )}
+        </StyledBox>
+        <ButtonContainer>
+          <StyledButton
+            onClick={() => {
+              handleSubmit();
+            }}
+          >
+            Submit Recipe
+          </StyledButton>
+        </ButtonContainer>
+      </Wrapper>
+    </StyledMain>
   );
 };
 
 export default AddRecipe;
 
-const StyledAddButton = styled.button``;
+const Wrapper = styled.div`
+  //display: flex;
+  //flex-wrap: wrap;
+  gap: 2px;
+  width: 600px;
+  border: 3px solid black;
+  margin-top: 50px;
+`;
+
+const StyledAddButton = styled.button`
+  margin-left: -5px;
+  // width: 5vw;
+  width: 60px;
+  color: white;
+  background-color: black;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 const StyledBox = styled.div`
   margin: auto;
   width: 100%;
   height: 150px;
   background-color: #fafafa;
-  // background-color: red;
-  //background-image: url("/mockup-graphics-C4AQnyn59oU-unsplash.jpg");
+
   overflow-x: hidden;
   border: 1px solid rgb(232, 232, 232);
   padding: 20px 10px;
+`;
+const StyledForm = styled.form`
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;
+  //justify-content: center;
+  background-color: #fafafa;
+`;
+const StyledInputContainer = styled.div`
+  width: 600px;
+  background-color: black;
+`;
+const StyledInput1 = styled.input`
+  width: 567px;
+  border: 2px solid black;
+  border-radius: 0;
+  margin: auto;
+`;
+const StyledInput = styled.input`
+  width: 511px;
+  border: 2px solid black;
+  border-radius: 0;
+  border-left: none;
+`;
+
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+const StyledButton = styled.button`
+  color: white;
+  background-color: green;
+  padding: 15px 25px;
+  border-radius: 3px;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+const StyledMain = styled.div`
+  display: flex;
+  justify-content: center;
+  //flex-wrap: wrap;
+  // gap: 2px;
+  width: 650px;
+  //border: 3px solid black;
+  margin: auto;
+  //background-color: black;
 `;

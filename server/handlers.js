@@ -121,7 +121,7 @@ const addRecipe = async (req, res) => {
 
   try {
     const newRecipe = req.body;
-    const recipe = (newRecipe.recipeId = uuidv4());
+    // const recipe = (newRecipe.recipeId = uuidv4());
 
     console.log("New recipe", newRecipe);
     //console.log("TESTING!!", newRecipe.ingredients[0]);
@@ -137,11 +137,21 @@ const addRecipe = async (req, res) => {
         //     createdRecipes: [recipe],
         //   },
         // }
+
         ////working
         { _id: userId },
+
+        // { _id: userId },
+        // {
+        //   $set: {
+        //     createdRecipes: [newRecipe],
+        //   },
+        // }
+
+        ////////////
         {
-          $set: {
-            createdRecipes: [newRecipe],
+          $push: {
+            $createdRecipe: newRecipe,
           },
         }
       );
