@@ -4,21 +4,19 @@ import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import { FiHeart } from "react-icons/fi";
 import { Link, NavLink } from "react-router-dom";
-
+import { v4 as uuidv4 } from "uuid";
+///
 const Profile = () => {
   const { user, isAuthenticated } = useAuth0();
   const [liked, setLiked] = useState();
   const { likedRecipes, currentUser } = useContext(CurrentUserContext);
   console.log(user);
-  //const key = process.env.REACT_APP_API_KEY;
-  const key1 = "c3abc385b6234ccd924ea88750a1c611";
-  //process.env.REACT_APP_API_KEY1;
-  //"2b1b94826ab340d0a9ecb53d13d061c8";
+  //const key1 = process.env.REACT_APP_API_KEY1;
+  const key1 = "d910b4584a1c401d8b4b33365818ac87";
 
-  //get recipe ids from currentUser context then fetch recipe information and render it on screen
+  //get recipe ids from currentUser context "likedRecipe", then fetch recipe information and render it on screen
   const str = likedRecipes.toString();
-  //[1,2,3].to... = "[1,2,3]"
-  //console.log(str);
+
   console.log("CurrentUser", currentUser);
 
   useEffect(() => {
@@ -57,7 +55,7 @@ const Profile = () => {
       </StyledMain2>
 
       {!liked ? (
-        <StyledH2>No Liked recipes</StyledH2>
+        <p>No Liked recipes</p>
       ) : (
         <Wrapper>
           {liked.map((likeRecp) => {
@@ -83,9 +81,33 @@ const Profile = () => {
         </Wrapper>
       )}
       <Box1>
-        <StyledH2 to={"/addrecipe"}> Created recipes</StyledH2>
-        <StyledNav to={"/addrecipe"}> add recipe</StyledNav>
+        <StyledH2> Created recipes</StyledH2>
+        <CreatedWrapper>
+          {!currentUser.createdRecipe ? (
+            <p> you have no created recipes</p>
+          ) : (
+            currentUser.createdRecipe.map((recipe) => {
+              return (
+                <CreatedBox key={uuidv4()}>
+                  <RecipeName>{recipe.recipeName}</RecipeName>
+                  <RecipeStep>
+                    {recipe.steps.map((step, index) => {
+                      return (
+                        <Steps key={uuidv4()}>
+                          <p>
+                            Step {index + 1}: {step.name}{" "}
+                          </p>
+                        </Steps>
+                      );
+                    })}
+                  </RecipeStep>
+                </CreatedBox>
+              );
+            })
+          )}
+        </CreatedWrapper>
       </Box1>
+      <StyledNav to={"/addrecipe"}> add recipe</StyledNav>
     </StyledContainer>
   );
 };
@@ -124,12 +146,22 @@ const Box1 = styled.div`
 `;
 const Box2 = styled.div``;
 
-const StyledNav = styled(NavLink)``;
+const StyledNav = styled(NavLink)`
+  text-decoration: none;
+  color: black;
+  font-size: 30px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 ///////////////////////////////////////////
 const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  margin-left: 30px;
 `;
 
 const StyledDiv = styled.div`
@@ -178,4 +210,28 @@ const StyledHeart = styled(Link)`
 const StyledH2 = styled.h2`
   font-size: 30px;
 `;
+
+const CreatedWrapper = styled.div`
+  display: flex;
+
+  flex-wrap: wrap;
+  gap: 10px;
+`;
+const CreatedBox = styled.div`
+  /* display: flex;*/
+  width: 250px;
+  border: solid 1px black;
+`;
+const RecipeName = styled.h2`
+  background-color: black;
+  color: white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+`;
+const RecipeStep = styled.div`
+  height: 200px;
+  overflow: scroll;
+`;
+const Steps = styled.p``;
 export default Profile;

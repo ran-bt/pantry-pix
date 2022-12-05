@@ -3,6 +3,7 @@ import styled from "styled-components";
 import IngredientsList from "../IngredientsList";
 import RecipeImg from "../RecipeImg";
 import { CurrentUserContext } from "../CurrentUserContext";
+import { v4 as uuidv4 } from "uuid";
 
 const AddRecipe = () => {
   const {
@@ -95,6 +96,7 @@ const AddRecipe = () => {
       .then((data) => {
         console.log("DATA", data.data);
         setCurrentUser({ ...currentUser, createdRecipe: data.data });
+        setCreatedRecipes(data.data.createdRecipe);
       });
   };
 

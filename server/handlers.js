@@ -123,7 +123,8 @@ const addRecipe = async (req, res) => {
     const newRecipe = req.body;
     // const recipe = (newRecipe.recipeId = uuidv4());
 
-    console.log("New recipe", newRecipe);
+    // console.log("New recipe", newRecipe);
+    console.log("New recipe", req.body);
     //console.log("TESTING!!", newRecipe.ingredients[0]);
 
     if (newRecipe) {
@@ -150,16 +151,19 @@ const addRecipe = async (req, res) => {
 
         ////////////
         {
-          $push: {
-            $createdRecipe: newRecipe,
-          },
+          $push: req.body,
         }
       );
+
+      const updatedData = await db
+        .collection("users")
+        .findOne({ _id: req.params.id });
+      console.log("updated User", updatedData);
 
       res.status(200).json({
         status: 200,
         message: "Congrats!! You added a new recipe",
-        data: users,
+        data: updatedData,
       });
     } else {
       //console.log("Response fr Mongo", users);
