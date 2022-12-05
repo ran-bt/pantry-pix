@@ -71,7 +71,6 @@ const AddRecipe = () => {
 
   ///this submits recipe to the backend
   const handleSubmit = () => {
-    console.log(currentUser);
     fetch(`/addrecipe/${currentUser._id}`, {
       method: "PATCH",
       body: JSON.stringify({
@@ -94,7 +93,6 @@ const AddRecipe = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("DATA", data.data);
         setCurrentUser({ ...currentUser, createdRecipe: data.data });
         setCreatedRecipes(data.data.createdRecipe);
       });
@@ -115,7 +113,6 @@ const AddRecipe = () => {
               value={recipeName}
               placeholder="recipe name..."
               onChange={(e) => {
-                console.log(e.target.value);
                 setRecipeName(e.target.value);
               }}
             />
@@ -133,7 +130,6 @@ const AddRecipe = () => {
               type="text"
               value={recipeValue}
               onChange={(e) => {
-                console.log(e.target.value);
                 setRecipeValue(e.target.value);
               }}
             />
@@ -162,7 +158,6 @@ const AddRecipe = () => {
               type="text"
               value={instructionValue}
               onChange={(e) => {
-                console.log(e.target.value);
                 setInstructionValue(e.target.value);
               }}
             />
@@ -197,8 +192,6 @@ const AddRecipe = () => {
 export default AddRecipe;
 
 const Wrapper = styled.div`
-  //display: flex;
-  //flex-wrap: wrap;
   gap: 2px;
   width: 600px;
   border: 3px solid black;
@@ -207,7 +200,7 @@ const Wrapper = styled.div`
 
 const StyledAddButton = styled.button`
   margin-left: -5px;
-  // width: 5vw;
+
   width: 60px;
   color: white;
   background-color: black;
@@ -230,7 +223,7 @@ const StyledForm = styled.form`
   display: flex;
   flex-wrap: nowrap;
   gap: 0;
-  //justify-content: center;
+
   background-color: #fafafa;
 `;
 const StyledInputContainer = styled.div`
@@ -269,10 +262,8 @@ const StyledButton = styled.button`
 const StyledMain = styled.div`
   display: flex;
   justify-content: center;
-  //flex-wrap: wrap;
-  // gap: 2px;
+
   width: 650px;
-  //border: 3px solid black;
+
   margin: auto;
-  //background-color: black;
 `;

@@ -12,7 +12,7 @@ const Profile = () => {
   const { likedRecipes, currentUser } = useContext(CurrentUserContext);
   console.log(user);
   //const key1 = process.env.REACT_APP_API_KEY1;
-  const key1 = "d910b4584a1c401d8b4b33365818ac87";
+  const key1 = "e9b946117e6f4b4a83df2b776aac2fe6";
 
   //get recipe ids from currentUser context "likedRecipe", then fetch recipe information and render it on screen
   const str = likedRecipes.toString();

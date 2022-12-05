@@ -19,14 +19,6 @@ const RecipeDetail = ({ recipes }) => {
 
   const { id } = useParams();
 
-  // const selectedRecipe = recipes.filter((recipeInfo) => {
-  //   return recipeInfo.id === id;
-  // });
-  // console.log("recipe list", recipes);
-  // console.log("selected Recipe", selectedRecipe);
-  // console.log("selected id", id);
-
-  //const key = process.env.REACT_APP_API_KEY;
   const key1 = process.env.REACT_APP_API_KEY1;
 
   //fetching list of ingredients
@@ -78,8 +70,8 @@ const RecipeDetail = ({ recipes }) => {
               <IoIosPeople size={"2em"} color="green" />
             </Icon>
             <Info>
-              <h2>{instructions.serving}</h2>
-              <p>2</p>
+              <h2>Serving</h2>
+              <p>{instructions.serving}</p>
             </Info>
           </Wrapper>
 
