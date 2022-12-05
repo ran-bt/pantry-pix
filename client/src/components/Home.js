@@ -25,7 +25,7 @@ const Home = ({
     useContext(CurrentUserContext);
   const { user, isAuthenticated } = useAuth0();
 
-  console.log("CURRENT!!!", currentUser);
+  //console.log("CURRENT!!!", currentUser);
 
   useEffect(() => {
     if (isAuthenticated) {

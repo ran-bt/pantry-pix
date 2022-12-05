@@ -13,7 +13,7 @@ const RecipeImg = ({ recipe }) => {
   //based on the value od the liked state we will either add or remove the recipe id from the likedRecipe list stored in the database and update the currunt user data in the currentUserContext
 
   useEffect(() => {
-    if (liked && currentUser) {
+    if (currentUser) {
       fetch(`/addlikedrecipe/${currentUser._id}`, {
         method: "PATCH",
         body: JSON.stringify({
@@ -37,10 +37,12 @@ const RecipeImg = ({ recipe }) => {
       setLikedRecipes((previousState) => [...previousState, recipe.id]);
     } else {
       setLikedRecipes((previousState) => {
-        const filterd = previousState.filter(
-          (likedRecipe) => likedRecipe !== recipe.id
-        );
-
+        const filterd = previousState.filter((likedRecipe) => {
+          // console.log("liked Recipe", likedRecipe);
+          // console.log("Recipe Id", recipe.id);
+          return likedRecipe !== recipe.id;
+        });
+        console.log(filterd);
         return filterd;
       });
     }

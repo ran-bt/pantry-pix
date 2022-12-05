@@ -186,11 +186,11 @@ const addRecipe = async (req, res) => {
 const addLikedRecipe = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   const id = req.params.id;
-  const userId = parseInt(id);
-  console.log(userId);
+  //const userId = parseInt(id);
+  //console.log(userId);
   try {
     const likedRecipes = req.body.likedRecipeId;
-    console.log("LIKED RECIPES", likedRecipes);
+    //console.log("LIKED RECIPES", likedRecipes);
     if (likedRecipes) {
       await client.connect();
       const db = client.db("pantry");
@@ -203,11 +203,11 @@ const addLikedRecipe = async (req, res) => {
           },
         }
       );
-      console.log("USERS ARRAY", users);
+      //console.log("USERS ARRAY", users);
       const updatedUserData = await db
         .collection("users")
         .findOne({ _id: req.params.id });
-      console.log("updated User", updatedUserData);
+      //console.log("updated User", updatedUserData);
       res.status(200).json({
         status: 200,
         message: "Congrats!! You liked/unliked a recipe",
