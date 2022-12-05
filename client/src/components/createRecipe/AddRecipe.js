@@ -1,9 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import IngredientsList from "../IngredientsList";
 import RecipeImg from "../RecipeImg";
+import { CurrentUserContext } from "../CurrentUserContext";
 
 const AddRecipe = () => {
+  const {
+    likedRecipes,
+    currentUser,
+    setCurrentUser,
+    createdRecipes,
+    setCreatedRecipes,
+  } = useContext(CurrentUserContext);
   //these states hold the input values for instruction ingrdients
   const [recipeValue, setRecipeValue] = useState(null);
 
@@ -12,11 +20,15 @@ const AddRecipe = () => {
   // other state needed
   const [recipeName, setRecipeName] = useState("");
   const [ingredients, setIngredients] = useState([]);
+  const [instructions, setInstructions] = useState([]);
   const [recipeInstructions, setRecipeInstrucrions] = useState([]);
   //   const [addIngredient, setAddIngredient] = useState([]);
 
   const [newArray, SetnewArray] = useState([]);
   const [recipes, setRecipes] = useState(null);
+
+  //////////////////////////////
+  // add and /or delete ingredients
 
   const addIngredient = (task) => {
     setIngredients((prevState) => [...prevState, task]);
@@ -24,6 +36,17 @@ const AddRecipe = () => {
   };
   const deleteIngredient = (id) => {
     setIngredients((prevState) => prevState.filter((task) => task.id !== id));
+  };
+
+  ////////////////////////////////////
+  // add and /or delete instructions
+
+  const addInstruction = (task) => {
+    setInstructions((prevState) => [...prevState, task]);
+    // setTasks((prevState) => [...prevState, task]);
+  };
+  const deleteInstruction = (id) => {
+    setInstructions((prevState) => prevState.filter((task) => task.id !== id));
   };
 
   const clickHandlerRecipeName = () => {};
@@ -36,7 +59,43 @@ const AddRecipe = () => {
 
     setRecipeValue("");
   };
-  const clickHandlerInstruction = () => {};
+  const clickHandlerInstruction = (e) => {
+    e.preventDefault();
+    addInstruction({
+      name: instructionValue,
+      id: Date.now(),
+    });
+    setInstructionValue("");
+  };
+
+  ///this submits recipe to the backend
+  const handleSubmit = () => {
+    console.log(currentUser);
+    fetch(`/addrecipe/${currentUser._id}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        // createdRecipe: {
+        //   recipeName: "recipeName",
+        //   ingredients: "ingredients",
+        //   steps: "instructions",
+        // },
+        createdRecipe: {
+          recipeName: recipeName,
+          ingredients: ingredients,
+          steps: instructions,
+        },
+      }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("DATA", data.data);
+        setCurrentUser({ ...currentUser, createdRecipe: data.data });
+      });
+  };
 
   return (
     <div>
@@ -88,18 +147,33 @@ const AddRecipe = () => {
         }}
       >
         <input
-          required
-          type="instructions"
-          value={recipeInstructions}
+          placeholder="add instruction..."
+          type="text"
+          value={instructionValue}
           onChange={(e) => {
             console.log(e.target.value);
-            setRecipeInstrucrions(e.target.value);
+            setInstructionValue(e.target.value);
           }}
         />
         <StyledAddButton type="submit">add</StyledAddButton>
       </form>
-
-      <button>Submit</button>
+      <StyledBox>
+        {!ingredients ? (
+          ""
+        ) : (
+          <IngredientsList
+            deleteTask={deleteInstruction}
+            tasks={instructions}
+          />
+        )}
+      </StyledBox>
+      <button
+        onClick={() => {
+          handleSubmit();
+        }}
+      >
+        Submit Recipe
+      </button>
     </div>
   );
 };

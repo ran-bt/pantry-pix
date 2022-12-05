@@ -3,7 +3,7 @@ import { CurrentUserContext } from "./CurrentUserContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import { FiHeart } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Profile = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -83,7 +83,8 @@ const Profile = () => {
         </Wrapper>
       )}
       <Box1>
-        <StyledH2> Created recipes</StyledH2>
+        <StyledH2 to={"/addrecipe"}> Created recipes</StyledH2>
+        <StyledNav to={"/addrecipe"}> add recipe</StyledNav>
       </Box1>
     </StyledContainer>
   );
@@ -122,6 +123,8 @@ const Box1 = styled.div`
   margin: 15px 0;
 `;
 const Box2 = styled.div``;
+
+const StyledNav = styled(NavLink)``;
 ///////////////////////////////////////////
 const Wrapper = styled.div`
   display: flex;

@@ -21,7 +21,7 @@ const Home = ({
   //const key = process.env.REACT_APP_API_KEY;
   const key1 = process.env.REACT_APP_API_KEY1;
 
-  const { currentUser, setCurrentUser, likedRecipes } =
+  const { currentUser, setCurrentUser, likedRecipes, createdRecipes } =
     useContext(CurrentUserContext);
   const { user, isAuthenticated } = useAuth0();
 
@@ -35,7 +35,7 @@ const Home = ({
           name: user.name,
           email: user.email,
           likedRecipeId: likedRecipes,
-          createdRecipes: [],
+          createdRecipes: createdRecipes,
         }),
         headers: {
           Accept: "application/json",

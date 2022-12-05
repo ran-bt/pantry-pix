@@ -121,32 +121,27 @@ const addRecipe = async (req, res) => {
 
   try {
     const newRecipe = req.body;
-    console.log(newRecipe);
-    if (
-      newRecipe.recipeName &&
-      newRecipe.ingredients &&
-      newRecipe.steps &&
-      newRecipe.preptime
-    ) {
+    const recipe = (newRecipe.recipeId = uuidv4());
+
+    console.log("New recipe", newRecipe);
+    //console.log("TESTING!!", newRecipe.ingredients[0]);
+
+    if (newRecipe) {
       await client.connect();
       const db = client.db("pantry");
 
       const users = await db.collection("users").updateOne(
-        { recipeId: userId },
+        // { _id: userId },
+        // {
+        //   $set: {
+        //     createdRecipes: [recipe],
+        //   },
+        // }
+        ////working
+        { _id: userId },
         {
-          $push: {
-            creations: {
-              $each: [
-                {
-                  recipeId: uuidv4(),
-                  recipeName: newRecipe.recipeName,
-                  ingredients: newRecipe.ingredients,
-                  givenName: newRecipe.givenName,
-                  steps: newRecipe.steps,
-                  preptime: newRecipe.preptime,
-                },
-              ],
-            },
+          $set: {
+            createdRecipes: [newRecipe],
           },
         }
       );
@@ -157,12 +152,14 @@ const addRecipe = async (req, res) => {
         data: users,
       });
     } else {
+      //console.log("Response fr Mongo", users);
       res.status(404).json({
         status: 404,
         message: "Missing Information",
       });
     }
   } catch (err) {
+    //console.log("Response fr Mongo", users);
     console.log(err);
     res.status(500).json({ status: 500, message: err.message });
   } finally {

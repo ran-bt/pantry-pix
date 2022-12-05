@@ -24,7 +24,7 @@ app.get("/hello", (req, res) => {
 app.get("/recipes", getRecipes);
 app.get("/profile/:id", getProfile);
 app.post("/createuser", addNewUser);
-app.post("/addrecipe/:id", addRecipe);
+app.patch("/addrecipe/:id", addRecipe);
 app.patch("/addlikedrecipe/:id", addLikedRecipe);
 
 app.listen(port, () => {

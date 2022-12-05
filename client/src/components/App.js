@@ -47,7 +47,7 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/test" element={<Test />} />
         <Route path="/search" element={<SearchByIngredient />} />
-        <Route path="/createrecipe" element={<AddRecipe />} />
+        <Route path="/addrecipe" element={<AddRecipe />} />
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
       <Footer />

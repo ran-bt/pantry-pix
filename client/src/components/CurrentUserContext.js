@@ -11,6 +11,7 @@ const CurrentUserProvider = ({ children }) => {
   const [status, setStatus] = useState("loading");
   const [isLoggedin, setIsLoggedIn] = useState(false);
   const [likedRecipes, setLikedRecipes] = useState([]);
+  const [createdRecipes, setCreatedRecipes] = useState([]);
   // Fetch the user data from the server
   // When the data is received, update currentUser.
   // Also, set `status` to `idle`
@@ -42,6 +43,8 @@ const CurrentUserProvider = ({ children }) => {
         setStatus,
         likedRecipes,
         setLikedRecipes,
+        createdRecipes,
+        setCreatedRecipes,
       }}
     >
       {children}
